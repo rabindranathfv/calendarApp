@@ -3,12 +3,12 @@ import { onDeleteEvent } from '../../../store/calendar/calendarSlice';
 import { useCalendarStore } from './../../../hooks/useCalendarStore';
 
 export const FabDelete = () => {
-  const { deleteEvent } = useCalendarStore();
+  const { startDeleteEvent } = useCalendarStore();
 
   return (
     <>
       <button className="btn btn-danger fab-danger"
-        onClick={deleteEvent}>
+        onClick={startDeleteEvent}>
         <i className="fas fa-trash-alt"></i>
       </button>
     </>

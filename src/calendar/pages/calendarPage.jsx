@@ -28,8 +28,8 @@ import { FabDelete } from './../components/fabDelete/fabDelete';
 
 export const CalendarPage = () => {
 
-  const { openDateModal } = useUiStore();
-  const { events, setActiveEvent } = useCalendarStore();
+  const { openDateModal, isDateModalOpen } = useUiStore();
+  const { events, setActiveEvent, hasEventSelect } = useCalendarStore();
   const [lastView, setlastView] = useState(localStorage.getItem('lastView') || 'week')
 
   const eventStyleGetter = (event, start, end, isSelected) => {
@@ -51,7 +51,6 @@ export const CalendarPage = () => {
   }
 
   const onSelect = (event) => {
-    console.log("🚀 ~ file: calendarPage.jsx ~ line 52 ~ onSelect ~ event", event)
     setActiveEvent(event);
   }
 
@@ -84,7 +83,7 @@ export const CalendarPage = () => {
     <CalendarModal />
 
     <FabAddNew />
-    <FabDelete />
+    { hasEventSelect && !isDateModalOpen && <FabDelete />}
     </>
   )
 }
