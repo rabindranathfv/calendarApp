@@ -2,7 +2,7 @@ import { useState   } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-import { addHours, getDay, parse, format, startOfWeek } from 'date-fns';
+import { getDay, parse, format, startOfWeek } from 'date-fns';
 import esES from 'date-fns/locale/es';
 
 const locales = {
@@ -23,6 +23,7 @@ import { Navbar } from '../components/navbar/navbar';
 import { getMessagesEs } from '../../helpers/getMessages';
 import { CalendarEventBox } from '../components/calendarEventBox/calendarEventBox';
 import { CalendarModal } from '../components/calendarModal/calendarModal';
+import { FabAddNew } from './../components/fabAddNew/fabAddNew';
 
 export const CalendarPage = () => {
 
@@ -80,6 +81,8 @@ export const CalendarPage = () => {
     />
 
     <CalendarModal />
+
+    <FabAddNew />
     </>
   )
 }
