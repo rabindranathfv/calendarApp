@@ -27,7 +27,7 @@ import { CalendarModal } from '../components/calendarModal/calendarModal';
 export const CalendarPage = () => {
 
   const { openDateModal } = useUiStore();
-  const { events } = useCalendarStore();
+  const { events, setActiveEvent } = useCalendarStore();
   const [lastView, setlastView] = useState(localStorage.getItem('lastView') || 'week')
 
   const eventStyleGetter = (event, start, end, isSelected) => {
@@ -49,7 +49,8 @@ export const CalendarPage = () => {
   }
 
   const onSelect = (event) => {
-
+    console.log("🚀 ~ file: calendarPage.jsx ~ line 52 ~ onSelect ~ event", event)
+    setActiveEvent(event);
   }
 
   const onChangeEvent = (event) => {
