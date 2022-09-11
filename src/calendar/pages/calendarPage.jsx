@@ -24,6 +24,7 @@ import { getMessagesEs } from '../../helpers/getMessages';
 import { CalendarEventBox } from '../components/calendarEventBox/calendarEventBox';
 import { CalendarModal } from '../components/calendarModal/calendarModal';
 import { FabAddNew } from './../components/fabAddNew/fabAddNew';
+import { FabDelete } from './../components/fabDelete/fabDelete';
 
 export const CalendarPage = () => {
 
@@ -83,6 +84,7 @@ export const CalendarPage = () => {
     <CalendarModal />
 
     <FabAddNew />
+    <FabDelete />
     </>
   )
 }

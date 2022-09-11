@@ -23,9 +23,9 @@ export const FabAddNew = () => {
 
   return (
     <>
-      <button className="bt btn-primary fab"
+      <button className="btn btn-primary fab"
         onClick={handleNewEvent}>
-        <i className="fa-light fa-solid fa-plus"></i>
+        <i className="fas fa-solid fa-plus"></i>
       </button>
     </>
   )
