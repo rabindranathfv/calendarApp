@@ -2,14 +2,14 @@ import { createSlice } from '@reduxjs/toolkit'
 import { addHours } from 'date-fns';
 
 const tempEvent = {
-  _id: new Date().getTime(),
+  id: new Date().getTime(),
   title: 'Evento de prueba',
   notes: 'NOTES: Recordatorio de prueba',
   start: new Date(),
   end: addHours( new Date(), 2),
   bgcolor: 'FAFAFA',
   user: {
-    _id: 123,
+    id: 123,
     name: 'Rabindranath'
   }
 }

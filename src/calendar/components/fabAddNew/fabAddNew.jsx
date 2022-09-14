@@ -16,7 +16,7 @@ export const FabAddNew = () => {
     end: addHours( new Date(), 2),
     bgcolor: 'FAFAFA',
     user: {
-      _id: 123,
+      id: 123,
       name: 'Rabindranath'
     } })
   }
