@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { onAddNewEvent, onDeleteEvent, onSetActiveEvent, onUpdateEvent } from '../store/calendar/calendarSlice';
 import calendarApi from './../api/calendarAPI';
+import { convertEventsToDateEvents } from './../helpers/convertEventToDateEvents';
 
 export const useCalendarStore = () => {
 
@@ -19,7 +20,6 @@ export const useCalendarStore = () => {
         dispatch( onUpdateEvent({...calendarEvent}))
       } else {
         const { data } = await calendarApi.post('/events', { ...calendarEvent })
-        console.log("🚀 ~ file: useCalendarStore.js ~ line 20 ~ startSavingEvent ~ data", data, data?.event?._id)
         dispatch( onAddNewEvent({ ...calendarEvent, id: data.event.id, user }) )
       }
     } catch (error) {
@@ -30,12 +30,24 @@ export const useCalendarStore = () => {
   const startDeleteEvent = () => {
     dispatch( onDeleteEvent());
   }
+
+  const startLoadingEvent = async() => {
+    try {
+      const { data } = await calendarApi.get('/events/');
+      const eventsMapped = convertEventsToDateEvents(data.events);
+      console.log("🚀 ~ file: useCalendarStore.js ~ line 39 ~ startLoadingEvent ~ eventsMapped", eventsMapped)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return {
     events,
     activeEvent,
     hasEventSelect: !!activeEvent,
     setActiveEvent,
     startSavingEvent,
-    startDeleteEvent
+    startDeleteEvent,
+    startLoadingEvent
   }
 }

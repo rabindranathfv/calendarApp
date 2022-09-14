@@ -1,4 +1,4 @@
-import { useState   } from 'react';
+import { useState, useEffect } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
@@ -29,7 +29,7 @@ import { FabDelete } from './../components/fabDelete/fabDelete';
 export const CalendarPage = () => {
 
   const { openDateModal, isDateModalOpen } = useUiStore();
-  const { events, setActiveEvent, hasEventSelect } = useCalendarStore();
+  const { events, hasEventSelect, setActiveEvent, startLoadingEvent } = useCalendarStore();
   const [lastView, setlastView] = useState(localStorage.getItem('lastView') || 'week')
 
   const eventStyleGetter = (event, start, end, isSelected) => {
@@ -58,6 +58,10 @@ export const CalendarPage = () => {
     localStorage.setItem('lastView', event);
     setlastView(event);
   }
+
+  useEffect(() => {
+    startLoadingEvent();
+  }, [])
 
   return (
     <>
