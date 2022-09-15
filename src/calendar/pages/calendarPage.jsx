@@ -18,24 +18,27 @@ const localizer = dateFnsLocalizer({
 })
 
 import { useUiStore, useCalendarStore } from './../../hooks';
+import { useAuthStore } from './../../hooks/useAuthStore';
 
 import { Navbar } from '../components/navbar/navbar';
-import { getMessagesEs } from '../../helpers/getMessages';
 import { CalendarEventBox } from '../components/calendarEventBox/calendarEventBox';
 import { CalendarModal } from '../components/calendarModal/calendarModal';
 import { FabAddNew } from './../components/fabAddNew/fabAddNew';
 import { FabDelete } from './../components/fabDelete/fabDelete';
 
+import { getMessagesEs } from '../../helpers/getMessages';
+
 export const CalendarPage = () => {
 
   const { openDateModal, isDateModalOpen } = useUiStore();
   const { events, hasEventSelect, setActiveEvent, startLoadingEvent } = useCalendarStore();
+  const { user } = useAuthStore();
   const [lastView, setlastView] = useState(localStorage.getItem('lastView') || 'week')
 
   const eventStyleGetter = (event, start, end, isSelected) => {
-    // console.log({ event, start, end, isSelected })
+    const isMyEvent = user.uid === event.user._id || user.uid === event.user.uid;
     const style = {
-      backgroundColor: '#347cf7',
+      backgroundColor: isMyEvent ? '#347cf7' : '#465660',
       borderRadius: '0px',
       opacity: 0.8,
       color: 'white'

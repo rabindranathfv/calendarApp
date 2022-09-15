@@ -33,8 +33,35 @@ export const useCalendarStore = () => {
     }
   }
 
-  const startDeleteEvent = () => {
-    dispatch( onDeleteEvent());
+  const startDeleteEvent = async() => {
+    try {
+      const { id, title } = activeEvent;
+      console.log("🚀 ~ file: useCalendarStore.js ~ line 39 ~ startDeleteEvent ~ id", id)
+      const ModalDelete = await Swal.fire({
+        title: '<strong>Eliminar Evento</strong>',
+        icon: 'info',
+        html:
+          `Desea eliminar el evento <b>${title}?</b>`,
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText:
+          '<i class="fa fa-thumbs-up"></i> Si!',
+        confirmButtonAriaLabel: 'Thumbs up, No!',
+        cancelButtonText:
+          '<i class="fa fa-thumbs-down"></i>',
+        cancelButtonAriaLabel: 'Thumbs down'
+      });
+
+      if ( ModalDelete.isConfirmed) {
+        const { data } = await calendarApi.delete(`/events/${id}`);
+        Swal.fire('Evento Eliminado exitosamente', data.msg , 'success');
+        dispatch( onDeleteEvent());
+      }
+    } catch (error) {
+      console.log(error);
+      Swal.fire('Error al eliminar un evento', error.response.data.msg , 'error');
+    }
   }
 
   const startLoadingEvent = async() => {
