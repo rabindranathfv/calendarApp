@@ -3,7 +3,7 @@ import { AppRouter } from "./router/appRouter";
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 
-export const CalendarApp = () => {
+const CalendarApp = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -12,3 +12,5 @@ export const CalendarApp = () => {
     </Provider>
   )
 }
+
+export default CalendarApp;

@@ -1,7 +1,10 @@
 export const getEnvVariables = () => {
-  import.meta.env;
+
+  // comment because VITE STILL HAVE THE ISSUE
+  // import.meta.env
 
   return {
-    ...import.meta.env
+    // ...import.meta.env
+    VITE_API_URL: import.meta.env.VITE_API_URL
   }
 }
