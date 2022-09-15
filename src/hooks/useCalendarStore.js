@@ -1,7 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { onAddNewEvent, onDeleteEvent, onSetActiveEvent, onUpdateEvent } from '../store/calendar/calendarSlice';
+import { onAddNewEvent, onDeleteEvent, onLoadEvents, onSetActiveEvent, onUpdateEvent } from '../store/calendar/calendarSlice';
 import calendarApi from './../api/calendarAPI';
 import { convertEventsToDateEvents } from './../helpers/convertEventToDateEvents';
+
+import Swal from 'sweetalert2';
+
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 export const useCalendarStore = () => {
 
@@ -17,13 +21,15 @@ export const useCalendarStore = () => {
     try {
       // TODO: Update Event
       if (calendarEvent.id) {
-        dispatch( onUpdateEvent({...calendarEvent}))
+        const { data } = await calendarApi.put(`/events/${calendarEvent.id}`, { ...calendarEvent, user });
+        dispatch( onUpdateEvent({...calendarEvent, user}));
       } else {
-        const { data } = await calendarApi.post('/events', { ...calendarEvent })
-        dispatch( onAddNewEvent({ ...calendarEvent, id: data.event.id, user }) )
+        const { data } = await calendarApi.post('/events', { ...calendarEvent });
+        dispatch( onAddNewEvent({ ...calendarEvent, id: data.event.id, user }) );
       }
     } catch (error) {
       console.log(error);
+      Swal.fire('Error al guardar o actualizar un evento', error.response.data.msg , 'error');
     }
   }
 
@@ -35,7 +41,7 @@ export const useCalendarStore = () => {
     try {
       const { data } = await calendarApi.get('/events/');
       const eventsMapped = convertEventsToDateEvents(data.events);
-      console.log("🚀 ~ file: useCalendarStore.js ~ line 39 ~ startLoadingEvent ~ eventsMapped", eventsMapped)
+      dispatch( onLoadEvents(eventsMapped) );
     } catch (error) {
       console.log(error);
     }
