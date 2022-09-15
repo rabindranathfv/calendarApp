@@ -33,7 +33,6 @@ export const useAuthStore = () => {
     dispatch(onChecking())
     try {
       const { data } = await calendarApi.post('/auth/register', { name , email , password })
-      console.log("🚀 ~ file: useAuthStore.js ~ line 33 ~ startRegister ~ resp", data);
       localStorage.setItem('token', data.token);
       localStorage.setItem('token-init-date', new Date().getTime());
 

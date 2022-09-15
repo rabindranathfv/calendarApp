@@ -36,7 +36,6 @@ export const useCalendarStore = () => {
   const startDeleteEvent = async() => {
     try {
       const { id, title } = activeEvent;
-      console.log("🚀 ~ file: useCalendarStore.js ~ line 39 ~ startDeleteEvent ~ id", id)
       const ModalDelete = await Swal.fire({
         title: '<strong>Eliminar Evento</strong>',
         icon: 'info',
