@@ -14,7 +14,7 @@ import { createSlice } from "@reduxjs/toolkit";
 //   }
 // }
 
-export const initialState = {
+export const initialStateCalendar = {
   isloadingEvents: true,
   events: [],
   activeEvent: null,
@@ -22,7 +22,7 @@ export const initialState = {
 
 export const calendarSlice = createSlice({
   name: "calendar",
-  initialState,
+  initialState: initialStateCalendar,
   reducers: {
     onSetActiveEvent: (state, { payload }) => {
       state.activeEvent = payload;

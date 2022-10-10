@@ -2,11 +2,11 @@ import uiSlice, {
   onCloseDateModal,
   onOpenDateModal,
 } from "../../../src/store/ui/uiSlice";
-import { initialState } from "./../../../src/store/ui/uiSlice";
+import { initialStateUi } from "./../../../src/store/ui/uiSlice";
 
 describe("Unit test for uiSlice", () => {
   it("should be return initialState for ui", () => {
-    expect(uiSlice.getInitialState()).toEqual(initialState);
+    expect(uiSlice.getInitialState()).toEqual(initialStateUi);
   });
 
   it("should update isDateModalOpen", () => {
