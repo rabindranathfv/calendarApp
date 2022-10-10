@@ -6,7 +6,7 @@ describe("Calendar API settings", () => {
     expect(calendarApi.defaults.baseURL).toBe("http://localhost:4000/api/v1");
   });
 
-  test("should have x-token in the headers", async () => {
+  it("should have x-token in the headers", async () => {
     // TODO you must have backend running for pass this test or configure some url for Test api url
     const token = "token-prueba1";
     localStorage.setItem("token", token);
