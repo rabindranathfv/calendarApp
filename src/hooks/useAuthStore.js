@@ -1,73 +1,77 @@
+import { useSelector, useDispatch } from "react-redux";
+import {
+  onChecking,
+  onLogin,
+  onLogout,
+  onClearError,
+} from "../store/auth/auth";
+import { onClearCalendar } from "../store/calendar/calendarSlice";
 
-import { useSelector, useDispatch } from 'react-redux';
-import { onChecking, onLogin, onLogout, onClearError } from '../store/auth/auth';
-import { onClearCalendar } from '../store/calendar/calendarSlice';
-
-import calendarApi from './../api/calendarAPI';
+import calendarApi from "./../api/calendarAPI";
 
 export const useAuthStore = () => {
-
-  const { status, user, errorMessage } = useSelector( state => state.auth);
+  const { status, user, errorMessage } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const startLogin = async( {email, password }) => {
-    dispatch(onChecking())
+  const startLogin = async ({ email, password }) => {
+    dispatch(onChecking());
     try {
-      const { data } = await calendarApi.post('/auth', { email, password })
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('token-init-date', new Date().getTime());
+      const { data } = await calendarApi.post("/auth", { email, password });
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("token-init-date", new Date().getTime());
 
-      dispatch(onLogin( { name: data.name, uid: data.uid }))
-
+      dispatch(onLogin({ name: data.name, uid: data.uid }));
     } catch (error) {
       console.log(error);
-      dispatch(onLogout('wrong credentials'))
+      dispatch(onLogout("wrong credentials"));
       setTimeout(() => {
-        dispatch(onClearError())
+        dispatch(onClearError());
       }, 2000);
     }
+  };
 
-  }
-
-  const startRegister = async({ name, email, password} ) => {
-    dispatch(onChecking())
+  const startRegister = async ({ name, email, password }) => {
+    dispatch(onChecking());
     try {
-      const { data } = await calendarApi.post('/auth/register', { name , email , password })
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('token-init-date', new Date().getTime());
+      const { data } = await calendarApi.post("/auth/register", {
+        name,
+        email,
+        password,
+      });
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("token-init-date", new Date().getTime());
 
-      dispatch(onLogin( { name: data.name, uid: data.uid }));
+      dispatch(onLogin({ name: data.name, uid: data.uid }));
     } catch (error) {
       console.log(error);
-      dispatch(onLogout(error.response.data?.msg ))
+      dispatch(onLogout(error.response.data?.msg));
       setTimeout(() => {
-        dispatch(onClearError())
+        dispatch(onClearError());
       }, 2000);
     }
-  }
+  };
 
-  const checkAuthToken = async() => {
-    const token = localStorage.getItem('token');
-    if (!token) return dispatch(onLogout())
+  const checkAuthToken = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return dispatch(onLogout());
 
     try {
-      const { data } = calendarApi.get('/auth/renew');
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('token-init-date', new Date().getTime());
+      const { data } = calendarApi.get("/auth/renew");
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("token-init-date", new Date().getTime());
 
-      dispatch(onLogin( { name: data.name, uid: data.uid }));
-
+      dispatch(onLogin({ name: data.name, uid: data.uid }));
     } catch (error) {
       localStorage.clear();
-      dispatch(onLogout())
+      dispatch(onLogout());
     }
-  }
+  };
 
   const startLogout = () => {
     localStorage.clear();
-    dispatch(onClearCalendar())
+    dispatch(onClearCalendar());
     dispatch(onLogout());
-  }
+  };
 
   return {
     status,
@@ -77,6 +81,6 @@ export const useAuthStore = () => {
     startLogin,
     startRegister,
     checkAuthToken,
-    startLogout
-  }
-}
+    startLogout,
+  };
+};
