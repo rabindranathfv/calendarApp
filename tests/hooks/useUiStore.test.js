@@ -1,5 +1,5 @@
 /** @jest-environment jsdom */
-import { renderHook } from "@testing-library/react";
+import { renderHook, act } from "@testing-library/react";
 import { useUiStore } from "./../../src/hooks/useUiStore";
 import { store } from "./../../src/store/store";
 import { Provider } from "react-redux";
@@ -40,5 +40,36 @@ describe("Unit Test for useUiStore hook", () => {
       openDateModal: expect.any(Function),
       closeDateModal: expect.any(Function),
     });
+  });
+
+  test("should be trigger isDateModalOpen and change to true", () => {
+    const mockStore = getMockStore(initialStateUi);
+    const { result } = renderHook(() => useUiStore(), {
+      wrapper: ({ children }) => (
+        <Provider store={mockStore}>{children}</Provider>
+      ),
+    });
+
+    const { openDateModal } = result.current;
+    act(() => openDateModal());
+
+    expect(result.current.isDateModalOpen).toBeTruthy();
+  });
+
+  test("should be trigger closeDateModal and change to false", () => {
+    const mockStore = getMockStore(initialStateUi);
+    const { result } = renderHook(() => useUiStore(), {
+      wrapper: ({ children }) => (
+        <Provider store={mockStore}>{children}</Provider>
+      ),
+    });
+
+    const { openDateModal, closeDateModal } = result.current;
+    act(() => openDateModal());
+
+    expect(result.current.isDateModalOpen).toBeTruthy();
+
+    act(() => closeDateModal());
+    expect(result.current.isDateModalOpen).toBeFalsy();
   });
 });
