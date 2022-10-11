@@ -36,12 +36,12 @@ describe("Unit test for authSlice", () => {
   });
 
   it("should be update state after trigger onLogout", () => {
-    state = authSlice.reducer(state, onLogout({ error: "error login" }));
+    state = authSlice.reducer(state, onLogout("error login"));
     expect(state).toEqual(initialStateNotAuthenticated);
   });
 
   it("should be update state after trigger onClearError", () => {
-    state = authSlice.reducer(state, onClearError());
+    state = authSlice.reducer(initialStateNotAuthenticated, onClearError());
     expect(state.errorMessage).toBeFalsy();
   });
 });

@@ -16,5 +16,5 @@ export const initialStateAuthenticated = {
 export const initialStateNotAuthenticated = {
   status: "not-authenticated",
   user: {},
-  errorMessage: { error: "error login" },
+  errorMessage: "error login",
 };
