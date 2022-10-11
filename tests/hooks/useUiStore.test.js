@@ -19,6 +19,16 @@ const getMockStore = (initialState) => {
 };
 
 describe("Unit Test for useUiStore hook", () => {
+  let mockStoreInstance;
+  beforeEach(() => {
+    const mockStore = getMockStore(initialStateUi);
+    mockStoreInstance = renderHook(() => useUiStore(), {
+      wrapper: ({ children }) => (
+        <Provider store={mockStore}>{children}</Provider>
+      ),
+    });
+  });
+
   test("should be return default values", () => {
     const { result } = renderHook(() => useUiStore(), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
@@ -29,12 +39,8 @@ describe("Unit Test for useUiStore hook", () => {
   });
 
   test("should be return default values with another solution", () => {
-    const mockStore = getMockStore(initialStateUi);
-    const { result } = renderHook(() => useUiStore(), {
-      wrapper: ({ children }) => (
-        <Provider store={mockStore}>{children}</Provider>
-      ),
-    });
+    const { result } = mockStoreInstance;
+
     expect(result.current).toEqual({
       isDateModalOpen: false,
       openDateModal: expect.any(Function),
@@ -43,12 +49,7 @@ describe("Unit Test for useUiStore hook", () => {
   });
 
   test("should be trigger isDateModalOpen and change to true", () => {
-    const mockStore = getMockStore(initialStateUi);
-    const { result } = renderHook(() => useUiStore(), {
-      wrapper: ({ children }) => (
-        <Provider store={mockStore}>{children}</Provider>
-      ),
-    });
+    const { result } = mockStoreInstance;
 
     const { openDateModal } = result.current;
     act(() => openDateModal());
@@ -57,12 +58,7 @@ describe("Unit Test for useUiStore hook", () => {
   });
 
   test("should be trigger closeDateModal and change to false", () => {
-    const mockStore = getMockStore(initialStateUi);
-    const { result } = renderHook(() => useUiStore(), {
-      wrapper: ({ children }) => (
-        <Provider store={mockStore}>{children}</Provider>
-      ),
-    });
+    const { result } = mockStoreInstance;
 
     const { openDateModal, closeDateModal } = result.current;
     act(() => openDateModal());
