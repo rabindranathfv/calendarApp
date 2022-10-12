@@ -1,3 +1,5 @@
+import { testUserCredentials } from "./testUser";
+
 export const initialStateChecking = {
   status: "checking",
   user: {},
@@ -7,8 +9,7 @@ export const initialStateChecking = {
 export const initialStateAuthenticated = {
   status: "authenticated",
   user: {
-    ui: "uid-test",
-    name: "userTest",
+    ...testUserCredentials,
   },
   errorMessage: undefined,
 };

@@ -29,7 +29,7 @@ describe("Unit Test for useUiStore hook", () => {
     });
   });
 
-  test("should be return default values", () => {
+  it("should be return default values", () => {
     const { result } = renderHook(() => useUiStore(), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
@@ -38,7 +38,7 @@ describe("Unit Test for useUiStore hook", () => {
     expect(typeof result.current.closeDateModal).toBe("function");
   });
 
-  test("should be return default values with another solution", () => {
+  it("should be return default values with another solution", () => {
     const { result } = mockStoreInstance;
 
     expect(result.current).toEqual({
@@ -48,7 +48,7 @@ describe("Unit Test for useUiStore hook", () => {
     });
   });
 
-  test("should be trigger isDateModalOpen and change to true", () => {
+  it("should be trigger isDateModalOpen and change to true", () => {
     const { result } = mockStoreInstance;
 
     const { openDateModal } = result.current;
@@ -57,7 +57,7 @@ describe("Unit Test for useUiStore hook", () => {
     expect(result.current.isDateModalOpen).toBeTruthy();
   });
 
-  test("should be trigger closeDateModal and change to false", () => {
+  it("should be trigger closeDateModal and change to false", () => {
     const { result } = mockStoreInstance;
 
     const { openDateModal, closeDateModal } = result.current;
