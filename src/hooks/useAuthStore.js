@@ -38,6 +38,7 @@ export const useAuthStore = () => {
         email,
         password,
       });
+
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime());
 
