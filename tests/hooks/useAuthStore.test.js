@@ -144,6 +144,8 @@ describe("Unit Test for useAuthStore hook", () => {
     expect(localStorage.getItem("token")).toEqual(expect.any(String));
     expect(localStorage.getItem("token-init-date")).toEqual(expect.any(String));
     expect(startRegisterSpy).toBeCalled();
+
+    startRegisterSpy.mockRestore(); // unmocked post
   });
 
   it("should be call checkAuthToken and execute endpoint /auth/renew and update user token in localStorage successfully", async () => {
