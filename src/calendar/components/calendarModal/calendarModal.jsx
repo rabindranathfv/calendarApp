@@ -7,12 +7,15 @@ import Modal from 'react-modal';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import es from 'date-fns/locale/es';
 import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
 
 registerLocale('es', es);
 import 'react-datepicker/dist/react-datepicker.css';
+import { getEnvVariables } from './../../../helpers/getEnvVariables';
 
-Modal.setAppElement('#root');
+
+if ( getEnvVariables().VITE_MODE !== 'test' ) {
+    Modal.setAppElement('#root');
+}
 
 const customStyles = {
   content: {

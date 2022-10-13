@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import { useForm } from './../../hooks/useForm';
 import { useAuthStore } from './../../hooks/useAuthStore';
 
-import 'sweetalert2/dist/sweetalert2.min.css';
 import './loginPage.css';
 
 const loginFormFields = {
